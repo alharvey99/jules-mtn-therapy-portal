@@ -466,16 +466,14 @@ notes:
 levels:
   canvas:
     purpose: "The main app field or page background."
-    token-prefix: canvas
     examples:
       - page background
       - dashboard main area
-      - portal shell background
       - public page body
+      - portal shell background
 
   panel:
     purpose: "A contained region within the canvas."
-    token-prefix: panel
     examples:
       - cards
       - toolbars
@@ -485,21 +483,20 @@ levels:
       - sub-navigation blocks
 
   contrast:
-    purpose: "A stronger contained region used when clearer visual separation is needed."
-    token-prefix: contrast
+    purpose: "A stronger contained region used when clearer separation is needed."
     examples:
-      - navigation rail or drawer chrome
+      - navigation rail
       - summary pane
       - inspector column
-      - sticky action bar
+      - sticky action section
       - highlighted operational area
 
 rules:
   - Not every screen needs all three levels.
   - A layout may use multiple panels and no contrast regions.
-  - Choose the lowest layer that gives sufficient separation.
-  - Do not use contrast as decoration or to add visual interest.
-  - Never invent a fourth layer. Work within canvas, panel, and contrast.
+  - A three-pane layout may use canvas plus panel plus contrast, or canvas plus multiple panels only.
+  - Choose the lowest layer that gives enough separation.
+  - Do not use contrast as decoration.
 
 ---
 
@@ -507,27 +504,22 @@ rules:
 
 shells:
   public:
-    description: >
-      Unauthenticated public flow shell for booking, waiting list, and onboarding token flows.
-      Calm and welcoming. Not a marketing page.
+    description: "Unauthenticated public flow shell for booking, waiting list, and lightweight marketing content."
     regions:
-      - header (minimal)
+      - header
       - main
-      - footer (minimal)
+      - footer
     defaults:
       container-levels:
         page: canvas
         cards: panel
       behaviour:
-        header: simple and minimal. Practice name or neutral name if discreet comms is active.
-        content-width: form-max-width centred
+        header: simple, light, and minimal
+        nav: compact on desktop, drawer on mobile
         crisis-box: must be explicitly included by any page containing therapy-related forms
-        mobile: single-column always
 
   auth:
-    description: >
-      Centred, narrow shell for login, activation, practice setup, and onboarding steps.
-      Focused and calm. One task at a time.
+    description: "Centred, narrow shell for login, activation, reset-password, and onboarding steps."
     regions:
       - main
     defaults:
@@ -535,18 +527,16 @@ shells:
         page: canvas
         form-card: panel
       behaviour:
-        width: form-max-width maximum
-        alignment: centred
+        width: max 640px
+        alignment: centered
         no-navigation: true
         single-task: true
 
   dashboard:
-    description: >
-      Operational shell for admin and therapist flows.
-      Structured and clear. Efficient for repeated daily use.
+    description: "Operational shell for admin and therapist flows."
     regions:
+      - nav-region
       - topbar-region
-      - nav-drawer (slide-in from left, triggered by hamburger)
       - main-region
     defaults:
       container-levels:
@@ -554,37 +544,32 @@ shells:
         primary-content: panel
         emphasised-region: contrast
       behaviour:
-        topbar: sticky, header-height tall, panel-bg colour
-        nav: slide-in drawer triggered by hamburger in topbar. No persistent sidebar.
-        mobile-nav: drawer always
+        nav-region: may be rail, drawer, or stacked panel depending on breakpoint and product need
+        topbar-region: optional
+        main-region: flexible
+        mobile-nav: drawer-first
         role-switcher: visible in topbar when user has multiple active staff roles
-        notification-bell: visible in topbar
-        dev-toolbar: visible in development only (bottom of page, 40px)
 
   portal:
-    description: >
-      Client and responsible-person shell. Lower cognitive load and calmer emphasis than dashboard.
-      Must never feel institutional or pressuring.
+    description: "Client and responsible-person shell with lower cognitive load and calmer emphasis."
     regions:
       - topbar-region
       - main-region
+      - support-region
     defaults:
       container-levels:
         page: canvas
         content: panel
+        support: contrast
       behaviour:
-        topbar: sticky, header-height tall, panel-bg colour
-        nav: slide-in drawer triggered by hamburger in topbar
-        content-width: portal-content-max-width, centred
+        navigation: minimal and obvious
         quick-exit-fab: always rendered by this shell. Bottom right. pill radius. fab-size.
+        content-width: moderate, not overly wide
         role-switcher: visible in topbar when user has active client and RP roles
         context-switcher: visible in RP view when responsible person has multiple linked clients
-        mobile: single-column. Touch-friendly targets throughout.
 
   split-view:
-    description: >
-      Reusable shell for two-pane or three-pane operational views such as client record detail,
-      onboarding case management, or invoice detail.
+    description: "Reusable shell for two-pane or three-pane operational views."
     regions:
       - primary-pane
       - secondary-pane
@@ -596,25 +581,8 @@ shells:
         secondary-pane: panel
         optional-tertiary-pane: contrast
       behaviour:
-        panes: resizable only when the feature genuinely requires it
-        stacking: collapse to single-column below md breakpoint
-
-  settings:
-    description: >
-      Settings and configuration shell. Clear secondary navigation and moderate content width.
-      Used for practice settings, therapist profile, client portal settings.
-    regions:
-      - settings-nav (secondary navigation within settings)
-      - main-region
-    defaults:
-      container-levels:
-        page: canvas
-        settings-nav: panel
-        main-region: panel
-      behaviour:
-        navigation: clearly secondary to page title
-        content-width: form-max-width
-        mobile: settings nav collapses to select or accordion
+        panes: resizable only if the feature truly needs it
+        stacking: collapse to single-column on smaller screens
 
 breakpoints:
   sm: 640px
@@ -623,9 +591,9 @@ breakpoints:
   xl: 1280px
 
 rules:
-  - Every page must use a named shell or a project-approved extension of one.
-  - Shells define arrangement and behaviour. They must not introduce bespoke colour decisions.
-  - If a new reusable shell pattern is introduced, add it here before using it more than once.
+  - Every page must use a named shell or a project-approved shell extension.
+  - Shells define arrangement and behaviour, not bespoke colour choices.
+  - If a new shell type is introduced and reused, add it here.
   - The portal shell always renders the Quick Exit FAB. This cannot be disabled at the shell level.
 
 ---

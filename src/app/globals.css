@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Semantics - Light Mode */
+    --canvas-bg: #f8fafc;
+    --canvas-text: #0f172a;
+    --canvas-text-muted: #425466;
+
+    --panel-bg: #ffffff;
+    --panel-border: #e2e8f0;
+    --panel-text: #0f172a;
+    --panel-text-muted: #425466;
+
+    --contrast-bg: #edf2f7;
+    --contrast-border: #bcc9d6;
+    --contrast-text: #0f172a;
+    --contrast-text-muted: #425466;
+
+    --action-primary-bg: #3f6fb5;
+    --action-primary-bg-hover: #325792;
+    --action-primary-text: #ffffff;
+    --action-secondary-bg: #ffffff;
+    --action-secondary-border: #e2e8f0;
+    --action-secondary-text: #0f172a;
+    --action-ghost-text: #425466;
+
+    --state-success-bg: #dcfce7;
+    --state-success-text: #15803d;
+    --state-danger-bg: #fee2e2;
+    --state-danger-text: #b91c1c;
+    --state-warning-bg: #fef3c7;
+    --state-warning-text: #b45309;
+    --state-info-bg: #dbeafe;
+    --state-info-text: #1d4ed8;
+
+    --shadow-colour: rgba(15, 23, 42, 0.08);
+
+    /* Shadcn defaults mapped to our semantics for basic compatibility if needed */
+    --background: var(--canvas-bg);
+    --foreground: var(--canvas-text);
+    --card: var(--panel-bg);
+    --card-foreground: var(--panel-text);
+    --popover: var(--panel-bg);
+    --popover-foreground: var(--panel-text);
+    --primary: var(--action-primary-bg);
+    --primary-foreground: var(--action-primary-text);
+    --secondary: var(--contrast-bg);
+    --secondary-foreground: var(--contrast-text);
+    --muted: var(--canvas-bg);
+    --muted-foreground: var(--canvas-text-muted);
+    --accent: var(--contrast-bg);
+    --accent-foreground: var(--contrast-text);
+    --destructive: var(--state-danger-text);
+    --destructive-foreground: #ffffff;
+    --border: var(--panel-border);
+    --input: var(--panel-border);
+    --ring: var(--action-primary-bg);
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --canvas-bg: #0b1220;
+    --canvas-text: #f8fafc;
+    --canvas-text-muted: #e2e8f0;
+
+    --panel-bg: #0f172a;
+    --panel-border: #425466;
+    --panel-text: #f8fafc;
+    --panel-text-muted: #e2e8f0;
+
+    --contrast-bg: #1a2433;
+    --contrast-border: #bcc9d6;
+    --contrast-text: #ffffff;
+    --contrast-text-muted: #e2e8f0;
+
+    --action-primary-bg: #4f83cc;
+    --action-primary-bg-hover: #3f6fb5;
+    --action-primary-text: #ffffff;
+    --action-secondary-bg: #0f172a;
+    --action-secondary-border: #425466;
+    --action-secondary-text: #f8fafc;
+    --action-ghost-text: #e2e8f0;
+
+    --state-success-bg: rgba(22, 163, 74, 0.18);
+    --state-success-text: #86efac;
+    --state-danger-bg: rgba(220, 38, 38, 0.18);
+    --state-danger-text: #fca5a5;
+    --state-warning-bg: rgba(217, 119, 6, 0.18);
+    --state-warning-text: #fcd34d;
+    --state-info-bg: rgba(37, 99, 235, 0.18);
+    --state-info-text: #93c5fd;
+
+    --shadow-colour: rgba(2, 6, 23, 0.32);
+
+    /* Shadcn */
+    --background: var(--canvas-bg);
+    --foreground: var(--canvas-text);
+    --card: var(--panel-bg);
+    --card-foreground: var(--panel-text);
+    --popover: var(--panel-bg);
+    --popover-foreground: var(--panel-text);
+    --primary: var(--action-primary-bg);
+    --primary-foreground: var(--action-primary-text);
+    --secondary: var(--contrast-bg);
+    --secondary-foreground: var(--contrast-text);
+    --muted: var(--canvas-bg);
+    --muted-foreground: var(--canvas-text-muted);
+    --accent: var(--contrast-bg);
+    --accent-foreground: var(--contrast-text);
+    --destructive: var(--state-danger-text);
+    --destructive-foreground: #ffffff;
+    --border: var(--panel-border);
+    --input: var(--panel-border);
+    --ring: var(--action-primary-bg);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-[color:var(--panel-border)];
+  }
+  body {
+    @apply bg-[color:var(--canvas-bg)] text-[color:var(--canvas-text)] font-sans antialiased;
+  }
+}
