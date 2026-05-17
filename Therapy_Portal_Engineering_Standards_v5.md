@@ -66,7 +66,7 @@ src/
 │   │   │   └── page.tsx
 │   │   └── activate/
 │   │       └── page.tsx
-│   ├── (admin)/
+│   ├── admin/
 │   │   ├── layout.tsx                # StaffShell with admin navigation
 │   │   ├── page.tsx                  # Admin dashboard
 │   │   ├── clients/
@@ -92,7 +92,7 @@ src/
 │   │   │   └── page.tsx
 │   │   └── settings/
 │   │       └── page.tsx
-│   ├── (therapist)/
+│   ├── therapist/
 │   │   ├── layout.tsx                # StaffShell with therapist navigation
 │   │   ├── page.tsx
 │   │   ├── schedule/
@@ -103,7 +103,7 @@ src/
 │   │   │   └── page.tsx
 │   │   └── profile/
 │   │       └── page.tsx
-│   ├── (portal)/
+│   ├── portal/
 │   │   ├── layout.tsx                # PortalShell with client navigation
 │   │   ├── page.tsx
 │   │   ├── appointments/
@@ -114,7 +114,7 @@ src/
 │   │   │   └── page.tsx
 │   │   └── settings/
 │   │       └── page.tsx
-│   ├── (guardian)/
+│   ├── guardian/
 │   │   ├── layout.tsx                # PortalShell with RP navigation
 │   │   ├── page.tsx
 │   │   ├── appointments/
@@ -123,7 +123,7 @@ src/
 │   │   │   └── page.tsx
 │   │   └── settings/
 │   │       └── page.tsx
-│   ├── (public)/
+│   ├── public/
 │   │   ├── layout.tsx                # PublicShell
 │   │   ├── book/
 │   │   │   └── page.tsx
