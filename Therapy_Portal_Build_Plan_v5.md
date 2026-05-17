@@ -15,11 +15,11 @@ This document defines what to build, in what order, and how to verify it is comp
 
 Each module follows the two-stage lifecycle defined in Engineering Standards Section 16.
 
-**Stage 1: Demo.** Build all UI with hardcoded demo data. No service calls. Every screen viewable in the browser with the dev toolbar role switcher. Visual review and sign-off before proceeding.
+**Phase 1: App-Wide Demo.** Build all UI with hardcoded demo data for the entire application, module by module. No service calls. Every screen viewable in the browser with the dev toolbar role switcher. We pause for visual QA and sign-off after each module's UI is built.
 
-**Stage 2: Wired.** Replace demo data with real services, actions, and hooks. Write Playwright tests. Run verification. Produce module completion report.
+**Phase 2: App-Wide Wired.** Once Phase 1 is fully complete and signed off, replace demo data with real services, actions, and hooks across the application. Write Playwright tests. Run verification.
 
-The developer decides how to split work within each stage. The only gates that matter are: demo sign-off, and module completion sign-off.
+The developer works module by module within Phase 1, pausing for QA at the end of each module.
 
 Modules are built in the order listed. Each module must be signed off before the next begins.
 

@@ -39,8 +39,8 @@ No `alert()`, `confirm()`, or `prompt()`. All destructive confirmations use `Con
 **Rule 8. Every module includes Playwright tests.**
 Tests are written as part of the wired stage of each module. Tests that fail block sign-off. This is not optional.
 
-**Rule 9. UI-first modular build.**
-Each module follows the lifecycle defined in Section 16. Build the UI with demo data first, verify it visually, then wire it to the service layer, then test it end to end.
+**Rule 9. UI-first phased build.**
+The project follows a phased lifecycle. Phase 1: Build the UI with demo data for all modules, pausing for QA after each. Phase 2: Wire the entire app to the service layer and test it end to end.
 
 **Rule 10. Stop and ask rather than loop or guess.**
 If a requirement is ambiguous or a problem cannot be resolved within two attempts, stop. Write a clear description of the blocker. Wait for input. Do not continue speculating or retrying. This rule exists because the build runs on a credit-based system. Wasted compute is wasted money.
@@ -723,19 +723,15 @@ grep -r "#[0-9a-fA-F]\{3,6\}" src/components/ --include="*.tsx" --include="*.ts"
 
 This is the build pattern for every module. It replaces the previous chunk protocol. The developer decides how to split the internal work. What matters is that each stage is completed and verified before progressing to the next.
 
-### The two stages
+### The two phases
 
-Every module has exactly two stages: **Demo** and **Wired**.
+The build happens in two global phases rather than strictly per-module stages.
 
-**Stage 1: Demo.**
-Build all pages, layouts, and components for the module. Pass hardcoded demo data as props. No service calls, no Server Actions, no Firestore reads or writes. The UI renders with realistic, representative data that exercises every state the user will see: populated views, empty states, loading skeletons, error states, and edge cases like long names or maximum items.
+**Phase 1: App-Wide Demo.**
+Build all pages, layouts, and components for every module. Pass hardcoded demo data as props. No service calls, no Server Actions, no Firestore reads or writes. We work module by module, pausing for a visual review and QA sign-off after each module's UI is built.
 
-Demo data lives in `src/lib/demo/data.ts` as typed constants matching the TypeScript interfaces. Each module adds its demo data to this file. Demo data is never imported outside of pages during the demo stage.
-
-At the end of the demo stage, every screen in the module can be opened in a browser, navigated, and visually reviewed without logging in, creating accounts, or configuring anything. The dev toolbar role switcher controls which role's view is shown.
-
-**Stage 2: Wired.**
-Replace demo data with real service calls. Write Zod schemas, service files, Server Actions, and hooks. Connect components to the data layer. Write Playwright tests. Run grep verification. Produce the module completion report.
+**Phase 2: App-Wide Wired.**
+Once Phase 1 is fully complete for the entire app, replace demo data with real service calls. Write Zod schemas, service files, Server Actions, and hooks. Connect components to the data layer. Write Playwright tests. Run grep verification.
 
 ### Why this order
 

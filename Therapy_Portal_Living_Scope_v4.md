@@ -21,10 +21,10 @@ It captures: current build status, open questions requiring decisions, recent de
 **Infrastructure target:** GCP / Firebase (live environment for human testing after agentic build)
 **Credit model:** Pay-per-use. Efficiency is a hard constraint. Agent must stop and ask rather than loop or speculate.
 
-**Build lifecycle per module:**
-1. **Demo stage.** Build all UI with hardcoded demo data. No service calls. Every screen viewable via dev toolbar role switcher. Human reviews and signs off the UI.
-2. **Wired stage.** Connect to services, write tests, run verification. Produce module completion report.
-3. **Sign-off.** Module accepted. Move to next module.
+**Build lifecycle:**
+1. **Phase 1 (App-Wide Demo).** Build UI with hardcoded demo data module by module. Pause for human QA and sign-off after each module's UI is built.
+2. **Phase 2 (App-Wide Wired).** Once Phase 1 is complete for all modules, wire them to services, write tests, and run verification.
+3. **Final Sign-off.** Application accepted.
 
 **Key efficiency rule:** If the agent encounters a problem it cannot resolve within two attempts, or an ambiguity that could go in two meaningfully different directions, it must stop immediately and request clarification. Do not retry speculatively. Do not generate alternative implementations. Stop and ask.
 
@@ -97,7 +97,7 @@ These require a confirmed decision before the relevant build module can begin. T
 
 All decisions D001 through D060 are fully absorbed into Master Blueprint v4.0.
 
-**D061.** UI-first modular build lifecycle. Each module built in two stages: demo (hardcoded data, visual review) then wired (services, tests, verification). Absorbed into Engineering Standards v5.0 and Build Plan v5.0.
+**D061.** UI-first phased build lifecycle. Phase 1: App-wide demo (module by module UI build with QA pauses). Phase 2: App-wide wired. Absorbed into Engineering Standards v5.0 and Build Plan v5.0.
 
 **D062.** Modules replace chunks. The Build Plan defines modules as self-contained deliverables. The developer decides how to split internal work. Gates are at demo sign-off and module completion sign-off only. Absorbed into Build Plan v5.0.
 
