@@ -1,3 +1,1 @@
-export default function ActivatePage() {
-  return <div>Activate Account</div>;
-}
+export default function Page() { return null; }

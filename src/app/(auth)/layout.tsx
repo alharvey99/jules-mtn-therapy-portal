@@ -1,3 +1,1 @@
-export default function RegisterPage() {
-  return <div>Register</div>;
-}
+export default function Layout({ children }: { children: React.ReactNode }) { return <>{children}</>; }
