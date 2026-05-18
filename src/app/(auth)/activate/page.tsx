@@ -1,58 +1,48 @@
 import { AuthShell } from "@/components/shared/layout/AuthShell";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { SubmitButton } from "@/components/shared/forms/SubmitButton";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 interface ActivatePageProps {
-  searchParams: { state?: string };
+  searchParams: Promise<{ state?: string }>;
 }
 
-export default function ActivatePage({ searchParams }: ActivatePageProps) {
-  const state = searchParams.state || "success";
+export default async function ActivatePage({ searchParams }: ActivatePageProps) {
+  const { state = "success" } = await searchParams;
 
-  if (state === "success") {
-    return (
-      <AuthShell>
-        <div className="bg-panel-bg p-6 sm:p-8 rounded-xl border border-panel-border shadow-sm flex flex-col items-center gap-6 text-center">
-          <PageHeader title="Signed in successfully" />
-          <p className="text-panel-muted">
-            Your account has been activated. You are being redirected...
-          </p>
-          <Link href="/admin" className="w-full">
-            <SubmitButton className="w-full">Go to Dashboard</SubmitButton>
-          </Link>
-        </div>
-      </AuthShell>
-    );
-  }
+  const content = {
+    success: {
+      title: "Signed in successfully",
+      message: "Your account has been activated. You are being redirected...",
+      buttonText: "Go to Dashboard",
+      buttonHref: "/admin"
+    },
+    expired: {
+      title: "Link expired",
+      message: "This sign-in link has expired. Please request a new one or contact your practice if you continue to have issues.",
+      buttonText: "Back to Login",
+      buttonHref: "/login"
+    },
+    invalid: {
+      title: "Invalid link",
+      message: "This sign-in link is invalid or has already been used.",
+      buttonText: "Back to Login",
+      buttonHref: "/login"
+    }
+  };
 
-  if (state === "expired") {
-    return (
-      <AuthShell>
-        <div className="bg-panel-bg p-6 sm:p-8 rounded-xl border border-panel-border shadow-sm flex flex-col items-center gap-6 text-center">
-          <PageHeader title="Link expired" />
-          <p className="text-panel-muted">
-            This sign-in link has expired. Please request a new one or contact your practice if you continue to have issues.
-          </p>
-          <Link href="/login" className="w-full">
-            <SubmitButton className="w-full">Back to Login</SubmitButton>
-          </Link>
-        </div>
-      </AuthShell>
-    );
-  }
+  const { title, message, buttonText, buttonHref } = content[state as keyof typeof content] || content.invalid;
 
-  // invalid
   return (
     <AuthShell>
       <div className="bg-panel-bg p-6 sm:p-8 rounded-xl border border-panel-border shadow-sm flex flex-col items-center gap-6 text-center">
-        <PageHeader title="Invalid link" />
+        <PageHeader title={title} />
         <p className="text-panel-muted">
-          This sign-in link is invalid or has already been used.
+          {message}
         </p>
-        <Link href="/login" className="w-full">
-          <SubmitButton className="w-full">Back to Login</SubmitButton>
-        </Link>
+        <Button asChild className="w-full">
+          <Link href={buttonHref}>{buttonText}</Link>
+        </Button>
       </div>
     </AuthShell>
   );

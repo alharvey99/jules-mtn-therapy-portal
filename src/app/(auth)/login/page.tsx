@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
 import { SubmitButton } from "@/components/shared/forms/SubmitButton";
+import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ export default function LoginPage() {
   };
 
   const handleGoogleSSO = () => {
-    console.log("Demo: Google SSO clicked");
+    // Demo: no-op
   };
 
   return (
@@ -39,9 +40,9 @@ export default function LoginPage() {
             <p className="text-sm text-panel-muted mt-2">
               We&apos;ve sent a magic link to <strong>{email}</strong>. Click the link to sign in.
             </p>
-            <SubmitButton variant="ghost" className="mt-4" onClick={() => setSent(false)}>
+            <Button type="button" variant="ghost" className="mt-4" onClick={() => setSent(false)}>
               Use a different email
-            </SubmitButton>
+            </Button>
           </div>
         ) : (
           <form onSubmit={handleMagicLink} className="flex flex-col gap-6">
@@ -69,14 +70,14 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <SubmitButton
+            <Button
               type="button"
               variant="secondary"
               onClick={handleGoogleSSO}
               className="w-full"
             >
               Sign in with Google
-            </SubmitButton>
+            </Button>
           </form>
         )}
       </div>
