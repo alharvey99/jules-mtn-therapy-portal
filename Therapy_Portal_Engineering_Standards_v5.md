@@ -14,6 +14,8 @@ Read this document fully before writing any code. These rules apply to every fil
 ---
 
 ## Section 1. Absolute Rules
+**Rule 0. Node v22+ Required.**
+Node 22 or higher is mandatory for local development and build. (Enforced by firebase-admin v13 and Playwright 1.60+).
 
 **Rule 1. One Firestore boundary per collection.**
 Each Firestore collection has exactly one service file. That service file is the only place in the codebase that imports and calls Firestore for that collection. No component, page, Server Action, hook, or utility imports Firestore directly.
@@ -433,7 +435,7 @@ Each layer has one responsibility. Nothing crosses layer boundaries.
 ```typescript
 'use server'
 
-import { z } from 'zod'
+import { z, safeParse } from 'zod'
 import { ok, fail } from '@/lib/utils'
 import { someSchema } from '@/lib/schemas/some.schemas'
 import * as someService from '@/lib/services/some.service'
@@ -446,7 +448,7 @@ export async function createSomethingAction(
 ): Promise<ActionResult<SomeType>> {
 
   // 1. Validate first. Always.
-  const parsed = someSchema.safeParse(Object.fromEntries(formData))
+  const parsed = safeParse(someSchema, Object.fromEntries(formData))
   if (!parsed.success) {
     return fail(
       'Please check the form for errors.',
@@ -631,9 +633,9 @@ export const penceSchema = z.number().int().positive()
 
 Common schemas in `common.schemas.ts`:
 ```typescript
-export const ukPostcodeSchema = z.string().regex(/^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i)
-export const ukPhoneSchema = z.string().regex(/^(\+44|0)[\d\s]{9,13}$/)
-export const dateStringSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
+export const ukPostcodeSchema = z.string().pattern(/^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i)
+export const ukPhoneSchema = z.string().pattern(/^(\+44|0)[\d\s]{9,13}$/)
+export const dateStringSchema = z.string().pattern(/^\d{4}-\d{2}-\d{2}$/)
 export const isoTimestampSchema = z.string().datetime()
 export const penceSchema = z.number().int().positive()
 ```

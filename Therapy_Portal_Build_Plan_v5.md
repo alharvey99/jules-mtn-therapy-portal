@@ -109,7 +109,7 @@ Must be complete before any feature work begins.
 2. Install packages: `firebase`, `firebase-admin`, `zod`, `date-fns`, `lucide-react`, `clsx`, `tailwind-merge`, `bcryptjs`, `@playwright/test`.
 3. Install shadcn/ui with Custom preset. Components: Button, Card, Input, Textarea, Label, Badge, Separator, Sheet, Dialog, AlertDialog, Switch, Select, Tabs, Table, Avatar, Checkbox, RadioGroup, Tooltip, Popover, DropdownMenu, Skeleton, ScrollArea, Form.
 4. Replace `src/app/globals.css` with the complete token implementation from DESIGN v4. Both light and dark mode. All semantic tokens as CSS custom properties.
-5. Replace `tailwind.config.ts` with the complete token mapping from DESIGN v4.
+5. Replace `globals.css (@theme)` with the complete token mapping from DESIGN v4.
 6. Configure Inter font via `next/font/google` in `src/app/layout.tsx`. Apply `inter.variable` to the html element.
 7. Create `src/config/tenant.config.ts` with placeholder values clearly marked.
 8. Create `src/config/brand.config.json` with placeholder brand values.

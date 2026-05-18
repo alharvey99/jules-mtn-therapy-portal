@@ -20,12 +20,12 @@ summary:
   portal, onboarding, public, and auth flows.
 
 usage:
-  - Keep this file in sync with globals.css and tailwind.config.ts.
+  - Keep this file in sync with globals.css and globals.css (@theme).
   - Treat this as the single source of truth for all visual decisions.
   - Use this file to brief AI design and dev tools.
   - Do not hardcode colours, spacing, radii, shadows, or typography in components.
   - Update this file first when visual system decisions change.
-  - Then sync globals.css and tailwind.config.ts.
+  - Then sync globals.css and globals.css (@theme).
   - If a new reusable shell or component pattern is added, register it here.
 
 ---
@@ -920,7 +920,7 @@ tech:
 
 mapping:
   - Implement all semantic tokens as CSS custom properties in globals.css.
-  - Bridge tokens into Tailwind via tailwind.config.ts theme extension.
+  - Bridge tokens into Tailwind via globals.css (@theme) theme extension.
   - Components consume semantic tokens only. Never raw palette values.
   - Shell components map regions to container levels. They must not invent local colour decisions.
   - Dark mode is applied via the .dark class on the html element, managed by a theme provider.
@@ -932,7 +932,7 @@ shadcn-usage:
 
 change-process:
   - Update this file first when any visual system decision changes.
-  - Then update globals.css and tailwind.config.ts to match.
+  - Then update globals.css and globals.css (@theme) to match.
   - If a new reusable shell or component pattern appears, register it here.
   - Keep this file and the implementation in sync at all times.
   - Version this file with each significant change.
