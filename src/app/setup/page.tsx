@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { AuthShell } from "@/components/shared/layout/AuthShell";
-import PageHeader from "@/components/shared/PageHeader";
+import { PageHeader } from "@/components/shared/PageHeader";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
-import SubmitButton from "@/components/shared/forms/SubmitButton";
+import { SubmitButton } from "@/components/shared/forms/SubmitButton";
 
 export default function PracticeSetupPage() {
   const [step, setStep] = useState(1);
