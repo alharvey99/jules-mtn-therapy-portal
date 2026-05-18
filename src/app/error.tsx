@@ -20,7 +20,7 @@ export default function Error({
       <div className="max-w-md w-full bg-panel-bg p-8 rounded-xl border border-panel-border shadow-sm text-center flex flex-col items-center gap-4">
         <PageHeader title="Something went wrong" />
         <p className="text-panel-muted">
-          An unexpected error occurred. We've logged this issue. Please try again.
+          An unexpected error occurred. We&apos;ve logged this issue. Please try again.
         </p>
         <SubmitButton onClick={() => reset()} className="mt-4 w-full">
           Try again
