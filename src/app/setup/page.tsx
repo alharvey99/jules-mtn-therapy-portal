@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { AuthShell } from "@/components/shared/layout/AuthShell";
-import PageHeader from "@/components/shared/PageHeader";
+import { PageHeader } from "@/components/shared/PageHeader";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
-import SubmitButton from "@/components/shared/forms/SubmitButton";
+import { SubmitButton } from "@/components/shared/forms/SubmitButton";
 
 export default function PracticeSetupPage() {
   const [step, setStep] = useState(1);
@@ -96,7 +96,7 @@ export default function PracticeSetupPage() {
                   id="practiceName"
                   value={practiceName}
                   onChange={(e) => setPracticeName(e.target.value)}
-                  placeholder="e.g. Canterbury Therapy Clinic"
+                  placeholder="e.g. Canterbuty Therapy Clinic"
                 />
               </FormField>
               <FormField label="Timezone" htmlFor="timezone">
