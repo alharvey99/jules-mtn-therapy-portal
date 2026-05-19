@@ -87,7 +87,7 @@ export default function AdminOnboardingPage() {
                 <SelectInput
                   id="cancelNotice"
                   value={["24", "48", "72"].includes(cancelNotice) ? cancelNotice : "custom"}
-                  onChange={(e) => setCancelNotice(e.target.value === "custom" ? "" : e.target.value)}
+                  onChange={(val) => setCancelNotice(val === "custom" ? "" : val)}
                 >
                   <option value="24">24</option>
                   <option value="48">48</option>
@@ -102,7 +102,7 @@ export default function AdminOnboardingPage() {
                 <SelectInput
                   id="bufferTime"
                   value={["10", "15", "30"].includes(bufferTime) ? bufferTime : "custom"}
-                  onChange={(e) => setBufferTime(e.target.value === "custom" ? "" : e.target.value)}
+                  onChange={(val) => setBufferTime(val === "custom" ? "" : val)}
                 >
                   <option value="10">10</option>
                   <option value="15">15</option>

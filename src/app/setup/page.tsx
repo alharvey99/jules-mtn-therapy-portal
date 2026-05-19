@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
 import { SubmitButton } from "@/components/shared/forms/SubmitButton";
+import { SelectInput } from "@/components/shared/forms/SelectInput";
 
 export default function PracticeSetupPage() {
   const [step, setStep] = useState(1);
@@ -100,14 +101,12 @@ export default function PracticeSetupPage() {
                 />
               </FormField>
               <FormField label="Timezone" htmlFor="timezone">
-                <select
+                <SelectInput
                   id="timezone"
-                  className="flex h-10 w-full rounded-md border bg-panel-bg px-3 py-2 text-sm text-panel-text focus:outline-none focus:ring-2 focus:ring-action-primary border-panel-border"
                   value={timezone}
-                  onChange={(e) => setTimezone(e.target.value)}
-                >
-                  <option value="Europe/London">Europe/London (GMT/BST)</option>
-                </select>
+                  onChange={(val) => setTimezone(val)}
+                  options={[{ value: "Europe/London", label: "Europe/London (GMT/BST)" }]}
+                />
               </FormField>
             </>
           )}

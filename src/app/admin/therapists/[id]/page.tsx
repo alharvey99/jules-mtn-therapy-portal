@@ -8,6 +8,7 @@ import { TextareaInput } from "@/components/shared/forms/TextareaInput";
 import { TextInput } from "@/components/shared/forms/TextInput";
 import { CheckboxInput } from "@/components/shared/forms/CheckboxInput";
 import { TimeInput } from "@/components/shared/forms/TimeInput";
+import { SelectInput } from "@/components/shared/forms/SelectInput";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
@@ -31,15 +32,15 @@ export default function TherapistDetailPage({ params }: { params: Promise<{ id: 
       </div>
 
       <div className="sm:hidden mb-4">
-        <select
-          className="flex h-10 w-full rounded-md border bg-panel-bg px-3 py-2 text-sm text-panel-text focus:outline-none focus:ring-2 focus:ring-action-primary border-panel-border appearance-none"
+        <SelectInput
           value={activeTab}
-          onChange={(e) => setActiveTab(e.target.value)}
-        >
-          <option value="profile">Profile & Specialisms</option>
-          <option value="hours">Working Hours</option>
-          <option value="leave">Leave Requests</option>
-        </select>
+          onChange={(val) => setActiveTab(val)}
+          options={[
+            { value: "profile", label: "Profile & Specialisms" },
+            { value: "hours", label: "Working Hours" },
+            { value: "leave", label: "Leave Requests" }
+          ]}
+        />
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
