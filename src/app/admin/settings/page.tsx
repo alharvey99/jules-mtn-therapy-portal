@@ -352,9 +352,19 @@ function RoomsTab() {
               <tr key={room.id} className="hover:bg-contrast-bg/50">
                 <td className="px-4 py-3 font-medium">{room.name}</td>
                 <td className="px-4 py-3 text-panel-muted">{room.status}</td>
-                <td className="px-4 py-3 text-right space-x-2">
-                  <Button variant="ghost" size="sm" onClick={() => handleOpenEdit(room)}>Edit</Button>
-                  <Button variant="ghost" size="sm" className="text-state-warning-text" onClick={() => handleDeactivate(room.id)}>Deactivate</Button>
+                <td className="px-4 py-3 text-right">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <MoreVertical className="h-4 w-4" />
+                        <span className="sr-only">Open menu</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => handleOpenEdit(room)}>Edit</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleDeactivate(room.id)} className="text-state-warning-text">Deactivate</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </td>
               </tr>
             ))}
