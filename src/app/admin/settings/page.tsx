@@ -6,11 +6,12 @@ import { TextInput } from "@/components/shared/forms/TextInput";
 import { TextareaInput } from "@/components/shared/forms/TextareaInput";
 import { SelectInput } from "@/components/shared/forms/SelectInput";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { MoreVertical, Inbox } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { useState } from "react";
 
 export default function SettingsPage() {
