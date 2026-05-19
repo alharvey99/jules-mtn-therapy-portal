@@ -1,4 +1,3 @@
-import { Inbox } from "lucide-react";
 "use client";
 
 import { PageHeader } from "@/components/shared/PageHeader";

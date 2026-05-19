@@ -8,7 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
-import { MoreVertical, Inbox } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 
