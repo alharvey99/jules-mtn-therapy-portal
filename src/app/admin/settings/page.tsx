@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Inbox } from "lucide-react";
 import { useState } from "react";
 
 export default function SettingsPage() {
@@ -26,7 +26,7 @@ export default function SettingsPage() {
       />
 
       <div className="sm:hidden mb-4">
-        <SelectInput value={activeTab} onChange={(e) => setActiveTab(e.target.value)}>
+        <SelectInput value={activeTab} onChange={(val) => setActiveTab(val)}>
           <option value="practice">Practice Details</option>
           <option value="policies">Policies</option>
           <option value="appointmentTypes">Appointment Types</option>
@@ -75,7 +75,7 @@ export default function SettingsPage() {
                 <SelectInput
                   id="cancelNotice"
                   value={["24", "48", "72"].includes(cancelNotice) ? cancelNotice : "custom"}
-                  onChange={(e) => setCancelNotice(e.target.value === "custom" ? "" : e.target.value)}
+                  onChange={(val) => setCancelNotice(val === "custom" ? "" : val)}
                 >
                   <option value="24">24</option>
                   <option value="48">48</option>
@@ -90,7 +90,7 @@ export default function SettingsPage() {
                 <SelectInput
                   id="bufferTime"
                   value={["10", "15", "30"].includes(bufferTime) ? bufferTime : "custom"}
-                  onChange={(e) => setBufferTime(e.target.value === "custom" ? "" : e.target.value)}
+                  onChange={(val) => setBufferTime(val === "custom" ? "" : val)}
                 >
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -253,7 +253,7 @@ function AppointmentTypesTab() {
                 <td className="px-4 py-3 text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <Button variant="ghost" size="sm" aria-label="More options" className="h-8 w-8 p-0">
                         <MoreVertical className="h-4 w-4" />
                         <span className="sr-only">Open menu</span>
                       </Button>
@@ -355,7 +355,7 @@ function RoomsTab() {
                 <td className="px-4 py-3 text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                      <Button variant="ghost" size="sm" aria-label="More options" className="h-8 w-8 p-0">
                         <MoreVertical className="h-4 w-4" />
                         <span className="sr-only">Open menu</span>
                       </Button>

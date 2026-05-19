@@ -1,3 +1,4 @@
+import { Inbox } from "lucide-react";
 "use client";
 
 import { PageHeader } from "@/components/shared/PageHeader";
@@ -52,7 +53,7 @@ export default function TherapistLeavePage() {
           </DialogHeader>
           <form onSubmit={handleRequestLeave} className="space-y-4">
             <FormField label="Leave Type" htmlFor="leaveType" required>
-              <SelectInput id="leaveType" value={type} onChange={e => setType(e.target.value)} required>
+              <SelectInput id="leaveType" value={type} onChange={(val) => setType(val)} required>
                 <option value="Annual Leave">Annual Leave</option>
                 <option value="Sick Leave">Sick Leave</option>
                 <option value="Compassionate Leave">Compassionate Leave</option>
