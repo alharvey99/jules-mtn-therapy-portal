@@ -5,12 +5,17 @@ import { AuthShell } from "@/components/shared/layout/AuthShell";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
+import { TextareaInput } from "@/components/shared/forms/TextareaInput";
+import { SelectInput } from "@/components/shared/forms/SelectInput";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export default function AdminOnboardingPage() {
   const [step, setStep] = useState(1);
   const router = useRouter();
+
+  const [cancelNotice, setCancelNotice] = useState("48");
+  const [bufferTime, setBufferTime] = useState("10");
 
   const handleNext = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -49,7 +54,7 @@ export default function AdminOnboardingPage() {
                 <TextInput id="practiceName" defaultValue="Canterbury Therapy Clinic" />
               </FormField>
               <FormField label="Address" htmlFor="address">
-                <TextInput id="address" placeholder="123 Main St" />
+                <TextareaInput id="address" placeholder="123 Main St" />
               </FormField>
             </>
           )}
@@ -60,8 +65,11 @@ export default function AdminOnboardingPage() {
                 title="Branding"
                 description="Customise how the portal looks for your clients."
               />
-              <FormField label="Primary Colour (Hex)" htmlFor="primaryColor">
-                <TextInput id="primaryColor" placeholder="#0f172a" />
+              <FormField label="Primary Colour" htmlFor="primaryColor">
+                <div className="flex gap-3">
+                  <input type="color" id="primaryColor" defaultValue="#0f172a" className="h-10 w-10 rounded border border-panel-border p-1 cursor-pointer" />
+                  <TextInput defaultValue="#0f172a" className="flex-1" />
+                </div>
               </FormField>
               <FormField label="Logo URL" htmlFor="logoUrl">
                 <TextInput id="logoUrl" placeholder="https://..." />
@@ -76,10 +84,34 @@ export default function AdminOnboardingPage() {
                 description="Set the standard policies for your practice."
               />
               <FormField label="Cancellation Notice (Hours)" htmlFor="cancelNotice">
-                <TextInput id="cancelNotice" type="number" defaultValue="48" />
+                <SelectInput
+                  id="cancelNotice"
+                  value={["24", "48", "72"].includes(cancelNotice) ? cancelNotice : "custom"}
+                  onChange={(e) => setCancelNotice(e.target.value === "custom" ? "" : e.target.value)}
+                >
+                  <option value="24">24</option>
+                  <option value="48">48</option>
+                  <option value="72">72</option>
+                  <option value="custom">custom</option>
+                </SelectInput>
+                {!["24", "48", "72"].includes(cancelNotice) && (
+                  <TextInput type="number" value={cancelNotice} onChange={(e) => setCancelNotice(e.target.value)} placeholder="Custom hours" className="mt-2" />
+                )}
               </FormField>
               <FormField label="Buffer Time (Minutes)" htmlFor="bufferTime">
-                <TextInput id="bufferTime" type="number" defaultValue="15" />
+                <SelectInput
+                  id="bufferTime"
+                  value={["10", "15", "30"].includes(bufferTime) ? bufferTime : "custom"}
+                  onChange={(e) => setBufferTime(e.target.value === "custom" ? "" : e.target.value)}
+                >
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="custom">custom</option>
+                </SelectInput>
+                {!["10", "15", "30"].includes(bufferTime) && (
+                  <TextInput type="number" value={bufferTime} onChange={(e) => setBufferTime(e.target.value)} placeholder="Custom minutes" className="mt-2" />
+                )}
               </FormField>
             </>
           )}

@@ -3,12 +3,21 @@
 import { PageHeader } from "@/components/shared/PageHeader";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
+import { TextareaInput } from "@/components/shared/forms/TextareaInput";
+import { SelectInput } from "@/components/shared/forms/SelectInput";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { MoreVertical } from "lucide-react";
 import { useState } from "react";
 
 export default function SettingsPage() {
+  const [activeTab, setActiveTab] = useState("practice");
+  const [cancelNotice, setCancelNotice] = useState("48");
+  const [bufferTime, setBufferTime] = useState("10");
+
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
       <PageHeader
@@ -16,8 +25,18 @@ export default function SettingsPage() {
         description="Manage your practice settings, policies, and configuration."
       />
 
-      <Tabs defaultValue="practice" className="w-full">
-        <TabsList className="mb-4">
+      <div className="sm:hidden mb-4">
+        <SelectInput value={activeTab} onChange={(e) => setActiveTab(e.target.value)}>
+          <option value="practice">Practice Details</option>
+          <option value="policies">Policies</option>
+          <option value="appointmentTypes">Appointment Types</option>
+          <option value="rooms">Rooms</option>
+          <option value="branding">Branding</option>
+        </SelectInput>
+      </div>
+
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="hidden sm:inline-flex mb-4 flex-wrap">
           <TabsTrigger value="practice">Practice Details</TabsTrigger>
           <TabsTrigger value="policies">Policies</TabsTrigger>
           <TabsTrigger value="appointmentTypes">Appointment Types</TabsTrigger>
@@ -33,7 +52,7 @@ export default function SettingsPage() {
                 <TextInput id="practiceName" defaultValue="Canterbury Therapy Clinic" />
               </FormField>
               <FormField label="Address" htmlFor="address">
-                <TextInput id="address" defaultValue="123 High Street, Canterbury, CT1 2AB" />
+                <TextareaInput id="address" defaultValue="123 High Street, Canterbury, CT1 2AB" />
               </FormField>
               <FormField label="Contact Email" htmlFor="email">
                 <TextInput id="email" type="email" defaultValue="admin@canterburytherapy.com" />
@@ -53,10 +72,34 @@ export default function SettingsPage() {
             <h3 className="text-lg font-medium">Policy Defaults</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField label="Cancellation Notice (Hours)" htmlFor="cancelNotice">
-                <TextInput id="cancelNotice" type="number" defaultValue="48" />
+                <SelectInput
+                  id="cancelNotice"
+                  value={["24", "48", "72"].includes(cancelNotice) ? cancelNotice : "custom"}
+                  onChange={(e) => setCancelNotice(e.target.value === "custom" ? "" : e.target.value)}
+                >
+                  <option value="24">24</option>
+                  <option value="48">48</option>
+                  <option value="72">72</option>
+                  <option value="custom">custom</option>
+                </SelectInput>
+                {!["24", "48", "72"].includes(cancelNotice) && (
+                  <TextInput type="number" value={cancelNotice} onChange={(e) => setCancelNotice(e.target.value)} placeholder="Custom hours" className="mt-2" />
+                )}
               </FormField>
               <FormField label="Buffer Time (Minutes)" htmlFor="bufferTime">
-                <TextInput id="bufferTime" type="number" defaultValue="15" />
+                <SelectInput
+                  id="bufferTime"
+                  value={["10", "15", "30"].includes(bufferTime) ? bufferTime : "custom"}
+                  onChange={(e) => setBufferTime(e.target.value === "custom" ? "" : e.target.value)}
+                >
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="custom">custom</option>
+                </SelectInput>
+                {!["10", "15", "30"].includes(bufferTime) && (
+                  <TextInput type="number" value={bufferTime} onChange={(e) => setBufferTime(e.target.value)} placeholder="Custom minutes" className="mt-2" />
+                )}
               </FormField>
             </div>
             <div className="flex justify-end">
@@ -69,8 +112,11 @@ export default function SettingsPage() {
           <div className="bg-panel-bg p-6 rounded-xl border border-panel-border shadow-sm space-y-6">
             <h3 className="text-lg font-medium">Portal Branding</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField label="Primary Colour (Hex)" htmlFor="primaryColor">
-                <TextInput id="primaryColor" defaultValue="#0f172a" />
+              <FormField label="Primary Colour" htmlFor="primaryColor">
+                <div className="flex gap-3">
+                  <input type="color" id="primaryColor" defaultValue="#0f172a" className="h-10 w-10 rounded border border-panel-border p-1 cursor-pointer" />
+                  <TextInput defaultValue="#0f172a" className="flex-1" />
+                </div>
               </FormField>
               <FormField label="Logo URL" htmlFor="logoUrl">
                 <TextInput id="logoUrl" defaultValue="https://example.com/logo.png" />
@@ -101,6 +147,8 @@ function AppointmentTypesTab() {
   ]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [isArchiveDialogOpen, setIsArchiveDialogOpen] = useState(false);
+  const [archivingId, setArchivingId] = useState<number | null>(null);
 
   // Form state
   const [name, setName] = useState("");
@@ -135,8 +183,11 @@ function AppointmentTypesTab() {
     setIsDialogOpen(false);
   };
 
-  const handleArchive = (id: number) => {
-    setTypes(types.filter(t => t.id !== id));
+  const handleConfirmArchive = () => {
+    if (archivingId) {
+      setTypes(types.filter(t => t.id !== archivingId));
+    }
+    setIsArchiveDialogOpen(false);
   };
 
   return (
@@ -168,6 +219,21 @@ function AppointmentTypesTab() {
         </DialogContent>
       </Dialog>
 
+      <AlertDialog open={isArchiveDialogOpen} onOpenChange={setIsArchiveDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will archive the appointment type. Existing appointments will not be affected, but you won&apos;t be able to select it for new bookings.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmArchive} className="bg-state-danger-bg text-state-danger-text hover:bg-state-danger-bg/90">Archive</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="border border-panel-border rounded-lg overflow-hidden">
         <table className="w-full text-sm text-left">
           <thead className="bg-contrast-bg text-canvas-text-muted">
@@ -184,9 +250,19 @@ function AppointmentTypesTab() {
                 <td className="px-4 py-3 font-medium">{type.name}</td>
                 <td className="px-4 py-3 text-panel-muted">{type.duration}</td>
                 <td className="px-4 py-3 text-panel-muted">£{(type.fee / 100).toFixed(2)}</td>
-                <td className="px-4 py-3 text-right space-x-2">
-                  <Button variant="ghost" size="sm" onClick={() => handleOpenEdit(type)}>Edit</Button>
-                  <Button variant="ghost" size="sm" className="text-state-danger-text" onClick={() => handleArchive(type.id)}>Archive</Button>
+                <td className="px-4 py-3 text-right">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <MoreVertical className="h-4 w-4" />
+                        <span className="sr-only">Open menu</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => handleOpenEdit(type)}>Edit</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => { setArchivingId(type.id); setIsArchiveDialogOpen(true); }} className="text-state-danger-text">Archive</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </td>
               </tr>
             ))}
