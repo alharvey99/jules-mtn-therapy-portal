@@ -5,7 +5,6 @@ import { AuthShell } from "@/components/shared/layout/AuthShell";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
-import { SubmitButton } from "@/components/shared/forms/SubmitButton";
 import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
@@ -57,9 +56,9 @@ export default function LoginPage() {
               />
             </FormField>
 
-            <SubmitButton type="submit" isLoading={loading} className="w-full">
+            <Button type="submit" isLoading={loading} className="w-full">
               Send Magic Link
-            </SubmitButton>
+            </Button>
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
