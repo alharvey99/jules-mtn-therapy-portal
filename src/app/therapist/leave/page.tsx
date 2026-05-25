@@ -52,12 +52,18 @@ export default function TherapistLeavePage() {
           </DialogHeader>
           <form onSubmit={handleRequestLeave} className="space-y-4">
             <FormField label="Leave Type" htmlFor="leaveType" required>
-              <SelectInput id="leaveType" value={type} onChange={(val) => setType(val)} required>
-                <option value="Annual Leave">Annual Leave</option>
-                <option value="Sick Leave">Sick Leave</option>
-                <option value="Compassionate Leave">Compassionate Leave</option>
-                <option value="Other">Other</option>
-              </SelectInput>
+              <SelectInput
+                id="leaveType"
+                value={type}
+                onChange={(val) => setType(val)}
+                required
+                options={[
+                  { value: "Annual Leave", label: "Annual Leave" },
+                  { value: "Sick Leave", label: "Sick Leave" },
+                  { value: "Compassionate Leave", label: "Compassionate Leave" },
+                  { value: "Other", label: "Other" }
+                ]}
+              />
             </FormField>
 
             <div className="grid grid-cols-2 gap-4">

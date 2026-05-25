@@ -5,7 +5,7 @@ import { AuthShell } from "@/components/shared/layout/AuthShell";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
-import { SubmitButton } from "@/components/shared/forms/SubmitButton";
+import { Button } from "@/components/ui/button";
 import { SelectInput } from "@/components/shared/forms/SelectInput";
 
 export default function PracticeSetupPage() {
@@ -131,37 +131,37 @@ export default function PracticeSetupPage() {
 
           <div className="flex justify-between items-center mt-4">
             {step > 1 ? (
-              <SubmitButton
+              <Button
                 type="button"
                 variant="ghost"
                 onClick={() => setStep(step - 1)}
               >
                 Back
-              </SubmitButton>
+              </Button>
             ) : <div />}
 
             <div className="flex gap-3">
               {step > 1 && step < 3 && (
-                <SubmitButton
+                <Button
                   type="button"
                   variant="secondary"
                   onClick={() => setStep(step + 1)}
                 >
                   Skip
-                </SubmitButton>
+                </Button>
               )}
               {step === 3 && (
-                <SubmitButton
+                <Button
                   type="button"
                   variant="secondary"
                   onClick={() => handleNext({ preventDefault: () => {} } as React.FormEvent)}
                 >
                   Skip
-                </SubmitButton>
+                </Button>
               )}
-              <SubmitButton type="submit" isLoading={loading}>
+              <Button type="submit" isLoading={loading}>
                 {step === 3 ? "Complete Setup" : "Continue"}
-              </SubmitButton>
+              </Button>
             </div>
           </div>
         </form>

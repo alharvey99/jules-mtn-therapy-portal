@@ -7,6 +7,7 @@ import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
 import { TextareaInput } from "@/components/shared/forms/TextareaInput";
 import { SelectInput } from "@/components/shared/forms/SelectInput";
+import { ColorPicker } from "@/components/shared/forms/ColorPicker";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
@@ -66,9 +67,9 @@ export default function AdminOnboardingPage() {
                 description="Customise how the portal looks for your clients."
               />
               <FormField label="Primary Colour" htmlFor="primaryColor">
-                <div className="flex gap-3">
-                  <input type="color" id="primaryColor" defaultValue="#0f172a" className="h-10 w-10 rounded border border-panel-border p-1 cursor-pointer" />
-                  <TextInput defaultValue="#0f172a" className="flex-1" />
+                <div className="flex gap-3 items-center">
+                  <ColorPicker id="primaryColor" defaultValue="#0f172a" />
+                  <TextInput defaultValue="#0f172a" className="flex-1" aria-label="Primary color hex value" />
                 </div>
               </FormField>
               <FormField label="Logo URL" htmlFor="logoUrl">
@@ -88,12 +89,13 @@ export default function AdminOnboardingPage() {
                   id="cancelNotice"
                   value={["24", "48", "72"].includes(cancelNotice) ? cancelNotice : "custom"}
                   onChange={(val) => setCancelNotice(val === "custom" ? "" : val)}
-                >
-                  <option value="24">24</option>
-                  <option value="48">48</option>
-                  <option value="72">72</option>
-                  <option value="custom">custom</option>
-                </SelectInput>
+                  options={[
+                    { value: "24", label: "24" },
+                    { value: "48", label: "48" },
+                    { value: "72", label: "72" },
+                    { value: "custom", label: "custom" }
+                  ]}
+                />
                 {!["24", "48", "72"].includes(cancelNotice) && (
                   <TextInput type="number" value={cancelNotice} onChange={(e) => setCancelNotice(e.target.value)} placeholder="Custom hours" className="mt-2" />
                 )}
@@ -103,12 +105,13 @@ export default function AdminOnboardingPage() {
                   id="bufferTime"
                   value={["10", "15", "30"].includes(bufferTime) ? bufferTime : "custom"}
                   onChange={(val) => setBufferTime(val === "custom" ? "" : val)}
-                >
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="custom">custom</option>
-                </SelectInput>
+                  options={[
+                    { value: "10", label: "10" },
+                    { value: "15", label: "15" },
+                    { value: "30", label: "30" },
+                    { value: "custom", label: "custom" }
+                  ]}
+                />
                 {!["10", "15", "30"].includes(bufferTime) && (
                   <TextInput type="number" value={bufferTime} onChange={(e) => setBufferTime(e.target.value)} placeholder="Custom minutes" className="mt-2" />
                 )}

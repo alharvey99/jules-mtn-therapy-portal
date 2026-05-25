@@ -62,8 +62,10 @@ export function StaffShell({ children, role }: StaffShellProps) {
           <button
             className="md:hidden p-2 -ml-2 mr-2 text-panel-muted hover:text-panel-text focus:outline-none"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMobileMenuOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
           </button>
 
           {/* Logo / Brand */}
