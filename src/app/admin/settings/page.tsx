@@ -5,6 +5,7 @@ import { FormField } from "@/components/shared/forms/FormField";
 import { TextInput } from "@/components/shared/forms/TextInput";
 import { TextareaInput } from "@/components/shared/forms/TextareaInput";
 import { SelectInput } from "@/components/shared/forms/SelectInput";
+import { ColorPicker } from "@/components/shared/forms/ColorPicker";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,13 +28,17 @@ export default function SettingsPage() {
       />
 
       <div className="sm:hidden mb-4">
-        <SelectInput value={activeTab} onChange={(val) => setActiveTab(val)}>
-          <option value="practice">Practice Details</option>
-          <option value="policies">Policies</option>
-          <option value="appointmentTypes">Appointment Types</option>
-          <option value="rooms">Rooms</option>
-          <option value="branding">Branding</option>
-        </SelectInput>
+        <SelectInput
+          value={activeTab}
+          onChange={(val) => setActiveTab(val)}
+          options={[
+            { value: "practice", label: "Practice Details" },
+            { value: "policies", label: "Policies" },
+            { value: "appointmentTypes", label: "Appointment Types" },
+            { value: "rooms", label: "Rooms" },
+            { value: "branding", label: "Branding" }
+          ]}
+        />
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -77,12 +82,13 @@ export default function SettingsPage() {
                   id="cancelNotice"
                   value={["24", "48", "72"].includes(cancelNotice) ? cancelNotice : "custom"}
                   onChange={(val) => setCancelNotice(val === "custom" ? "" : val)}
-                >
-                  <option value="24">24</option>
-                  <option value="48">48</option>
-                  <option value="72">72</option>
-                  <option value="custom">custom</option>
-                </SelectInput>
+                  options={[
+                    { value: "24", label: "24" },
+                    { value: "48", label: "48" },
+                    { value: "72", label: "72" },
+                    { value: "custom", label: "custom" }
+                  ]}
+                />
                 {!["24", "48", "72"].includes(cancelNotice) && (
                   <TextInput type="number" value={cancelNotice} onChange={(e) => setCancelNotice(e.target.value)} placeholder="Custom hours" className="mt-2" />
                 )}
@@ -92,12 +98,13 @@ export default function SettingsPage() {
                   id="bufferTime"
                   value={["10", "15", "30"].includes(bufferTime) ? bufferTime : "custom"}
                   onChange={(val) => setBufferTime(val === "custom" ? "" : val)}
-                >
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="custom">custom</option>
-                </SelectInput>
+                  options={[
+                    { value: "10", label: "10" },
+                    { value: "15", label: "15" },
+                    { value: "30", label: "30" },
+                    { value: "custom", label: "custom" }
+                  ]}
+                />
                 {!["10", "15", "30"].includes(bufferTime) && (
                   <TextInput type="number" value={bufferTime} onChange={(e) => setBufferTime(e.target.value)} placeholder="Custom minutes" className="mt-2" />
                 )}
@@ -114,10 +121,7 @@ export default function SettingsPage() {
             <h3 className="text-lg font-medium">Portal Branding</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField label="Primary Colour" htmlFor="primaryColor">
-                <div className="flex gap-3">
-                  <input type="color" id="primaryColor" defaultValue="#0f172a" className="h-10 w-10 rounded border border-panel-border p-1 cursor-pointer" />
-                  <TextInput defaultValue="#0f172a" className="flex-1" />
-                </div>
+                <ColorPicker id="primaryColor" defaultValue="#0f172a" />
               </FormField>
               <FormField label="Logo URL" htmlFor="logoUrl">
                 <TextInput id="logoUrl" defaultValue="https://example.com/logo.png" />

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { SubmitButton } from '@/components/shared/forms/SubmitButton';
+import { Button } from '@/components/ui/button';
 
 export default function Error({
   error,
@@ -22,9 +22,9 @@ export default function Error({
         <p className="text-panel-muted">
           An unexpected error occurred. We&apos;ve logged this issue. Please try again.
         </p>
-        <SubmitButton onClick={() => reset()} className="mt-4 w-full">
+        <Button onClick={() => reset()} className="mt-4 w-full">
           Try again
-        </SubmitButton>
+        </Button>
       </div>
     </div>
   );
