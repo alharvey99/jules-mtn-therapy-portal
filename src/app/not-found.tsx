@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SubmitButton } from '@/components/shared/forms/SubmitButton';
+import { Button } from '@/components/ui/button';
 import { PageHeader } from '@/components/shared/PageHeader';
 
 export default function NotFound() {
@@ -11,7 +11,7 @@ export default function NotFound() {
           We couldn&apos;t find the page you&apos;re looking for. It might have been moved or the link is incorrect.
         </p>
         <Link href="/" className="mt-4 block w-full">
-          <SubmitButton className="w-full">Return Home</SubmitButton>
+          <Button className="w-full">Return Home</Button>
         </Link>
       </div>
     </div>
